@@ -1,0 +1,18 @@
+*         text=auto
+*.scala   text
+*.java    text
+*.md      text
+*.js      text
+*.xml     text
+*.css     text
+*.svg     text
+*.sh      text
+*.puml    text
+*.html    text
+
+# text label => convert all crlf to lf when checkin 
+# * text=auto leave git to decide which file is text which is binary
+# If you want to local working dir use crlf do this "$ git config --global core.autocrlf auto"
+# If you want to local working dir use lf do this "$ git config --global core.autocrlf input"
+# http://adaptivepatchwork.com/2012/03/01/mind-the-end-of-your-line/
+# http://stackoverflow.com/questions/170961/whats-the-best-crlf-carriage-return-line-feed-handling-strategy-with-git
