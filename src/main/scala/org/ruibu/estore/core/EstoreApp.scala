@@ -31,6 +31,7 @@ object EstoreApp {
    * Product
    ********************************************************************/
   val stk = SmvCsvFile("input/prod/stkmas.txt", caBar) 
+  val trn = SmvCsvFile("input/trnx/transaction.txt", caBar) 
   def main(args: Array[String]) {
     new EstoreApp("EstoreApp", args).run()
   }

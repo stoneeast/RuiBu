@@ -14,7 +14,7 @@ val sqlContext = app.sqlContext; import sqlContext.implicits._
 object i {
   import java.io.{File, PrintWriter}
   
-  implicit class ShellSrddHelper(srdd: SchemaRDD) {
+  implicit class ShellSrddHelper(srdd: DataFrame) {
     def save(path: String) = {
       var helper = new org.tresamigos.smv.SmvDFHelper(srdd)
       helper.saveAsCsvWithSchema(path)(CsvAttributes.defaultCsvWithHeader)
@@ -47,10 +47,10 @@ object i {
   }
   
   def findSchema(path: String, n: Int = 100000)(implicit csvAttributes: CsvAttributes) = {
-    val file=sqlContext.csvFileWithSchemaDiscovery(path, n)
-    val schema=SmvSchema.fromSchemaRDD(file)
-    val outpath = path + ".schema"
-    schema.saveToFile(sc, outpath)
+    val file = sqlContext.csvFileWithSchemaDiscovery(path, n)
+    val schema = SmvSchema.fromSchemaRDD(file)
+    val outpath = SmvSchema.dataPathToSchemaPath(path)
+    schema.saveToLocalFile(outpath)
   }
   
   val p = EstoreApp
