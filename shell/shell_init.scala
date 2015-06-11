@@ -41,8 +41,7 @@ object i {
   def s(ds: SmvDataSet) = app.resolveRDD(ds)
   def j() = app.genJSON()
   
-  def open(fullPath: String) = {
-    implicit val ca = CsvAttributes.defaultCsvWithHeader
+  def open(fullPath: String)(implicit ca: CsvAttributes) = {
     sqlContext.csvFileWithSchema(fullPath)
   }
   
