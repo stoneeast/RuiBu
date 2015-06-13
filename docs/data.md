@@ -6,8 +6,8 @@ transaction table have all the inventory movements, and the stock master is a pr
 All other files are lookup tables.
 
 The whole er-diagram
-![er-diagram]()
+![er-diagram](https://rawgit.com/ninjapapa/RuiBu/master/docs/erdiagram/er.svg)
 
 We simply joined all the lookup tables to those 2 main table for de-normalization. After this step the
 er-diagram is
-![denorm er-diagram]()
+![denorm er-diagram](https://rawgit.com/ninjapapa/RuiBu/master/docs/erdiagram/denormed_er.svg)
