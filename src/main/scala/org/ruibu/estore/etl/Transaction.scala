@@ -8,6 +8,29 @@ import org.apache.spark.sql.functions._
  * ETL Module on Transactions
  */
 
+object Transaction extends
+  SmvModule("De-normalize transaction data") {
+
+  override def version() = 0
+  override def requiresDS() = Seq(
+    EstoreApp.trn,
+    EstoreApp.store,
+    EstoreApp.invmv
+  )
+
+  override def run(i: runParams) = {
+    val srdd = i(EstoreApp.trn)
+
+    val store = i(EstoreApp.store)
+    val invmv = i(EstoreApp.invmv)
+
+    srdd.joinByKey(store, Seq("STORE_ID"), "leftouter").
+      renameField("NAME" -> "STORE_NAME").
+      joinByKey(invmv, Seq("INVMOVE_ID"), "leftouter").
+      renameField("NAME" -> "INVMOVE_NAME")
+  }
+}
+
 object TranRetail extends SmvModule("Tran data on POS out and Customer Return only") {
 
   override def version() = 0;

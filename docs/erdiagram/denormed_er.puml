@@ -1,0 +1,65 @@
+@startuml
+!define table(x) class x << (T,#FFAAAA) >>
+!define factT(x) class x << (F,#DC504F) fact >>
+!define dimT(x) class x << (D,#3E93B5) dim >>
+!define softDimT(x) class x << (D,#3E93B5) softDim >>
+!define primary_key(x) <b><font size="14" color="#4041A4">x</font></b>
+!define foreign_key(x) <b><font size="12" color="#6666FF">x</font></b>
+!define link(t1,c1,t2,c2) t1 c1 -- c2 t2
+!define linkTo(t1,c1,t2) t1 c1 --> t2
+hide empty fields
+hide stereotypes
+
+skinparam class {
+  BackgroundColor<<fact>> #FFF9F9
+  BackgroundColor<<dim>> #EFF5F8
+  BackgroundColor<<softDim>> #CDCDCD
+  BorderColor<<fact>> #DC504F
+  BorderColor<<dim>> #3E93B5
+  BorderColor<<softDim>> #3E93B5
+  ArrowColor #1078A1
+}
+
+package "De-normalized" as denorm <<Rect>>{
+  factT("Transaction" as Trnx) {
+    primary_key(DOC_ID: String)
+    DOC_DATE: Timestamp
+    foreign_key(STK_ID: String)
+    --
+    STORE_ID: String
+    STORE_NAME: String
+    INVMOVE_ID: String
+    INVMOVE_NAME: String
+    STK_QTY: Long
+    UOM_ID: String
+    SRC_PRICE: Float
+    ORI_IN_DATE: Timestamp
+    SRC_CODE: String
+    MOVE_FLG: String
+  }
+
+  dimT("Stock Master" as Stk) {
+    primary_key(STK_ID: String)
+    UOM_ID: String
+    BRAND_ID: String
+    BRAND_NAME: String
+    CAT1_ID: String
+    CAT1_NAME: String
+    CAT2_ID: String
+    CAT2_NAME: String
+    CAT3_ID: String
+    CAT3_NAME: String
+    CAT5_ID: String
+    CAT5_NAME: String
+    CAT6_ID: String
+    CAT6_NAME: String
+    CAT7_ID: String
+    CAT7_NAME: String
+    CAT8_ID: String
+    CAT8_NAME: String
+  }
+
+  linkTo(Trnx, "STK_ID", Stk)
+}
+
+@enduml

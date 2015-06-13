@@ -1,0 +1,109 @@
+@startuml
+!define table(x) class x << (T,#FFAAAA) >>
+!define factT(x) class x << (F,#DC504F) fact >>
+!define dimT(x) class x << (D,#3E93B5) dim >>
+!define softDimT(x) class x << (D,#3E93B5) softDim >>
+!define primary_key(x) <b><font size="14" color="#4041A4">x</font></b>
+!define foreign_key(x) <b><font size="12" color="#6666FF">x</font></b>
+!define link(t1,c1,t2,c2) t1 c1 -- c2 t2
+!define linkTo(t1,c1,t2) t1 c1 --> t2
+hide empty fields
+hide stereotypes
+
+skinparam class {
+  BackgroundColor<<fact>> #FFF9F9
+  BackgroundColor<<dim>> #EFF5F8
+  BackgroundColor<<softDim>> #CDCDCD
+  BorderColor<<fact>> #DC504F
+  BorderColor<<dim>> #3E93B5
+  BorderColor<<softDim>> #3E93B5
+  ArrowColor #1078A1
+}
+
+package "RuiBu" as All <<Rect>>{
+  factT("Transaction" as Trnx) {
+    primary_key(DOC_ID: String)
+    DOC_DATE: Timestamp
+    foreign_key(INVMOVE_ID: String)
+    foreign_key(STORE_ID: String)
+    foreign_key(STK_ID: String)
+    --
+    STK_QTY: Long
+    UOM_ID: String
+    SRC_PRICE: Float
+    ORI_IN_DATE: Timestamp
+    SRC_CODE: String
+    MOVE_FLG: String
+  }
+
+  softDimT("STORE" as Store) {
+    primary_key(STORE_ID: String)
+    NAME
+  }
+
+  softDimT("INVMOVEID" as Inv) {
+    primary_key(INVMOVE_ID: String)
+    NAME
+  }
+
+  dimT("Stock Master" as Stk) {
+    primary_key(STK_ID: String)
+    UOM_ID: String
+    foreign_key(BRAND_ID: String)
+    foreign_key(CAT1_ID: String)
+    foreign_key(CAT2_ID: String)
+    foreign_key(CAT3_ID: String)
+    foreign_key(CAT4_ID: String)
+    foreign_key(CAT5_ID: String)
+    foreign_key(CAT6_ID: String)
+    foreign_key(CAT7_ID: String)
+    foreign_key(CAT8_ID: String)
+  }
+
+  linkTo(Trnx, "INVMOVE_ID", Inv)
+  linkTo(Trnx, "STORE_ID", Store)
+  linkTo(Trnx, "STK_ID", Stk)
+
+  softDimT("Brand" as Brnd) {
+    primary_key(BRAND_ID: String)
+    NAME
+  }
+  softDimT("Cat1" as Cat1) {
+    primary_key(CAT1_ID: String)
+    NAME
+  }
+  softDimT("Cat2" as Cat2) {
+    primary_key(CAT2_ID: String)
+    NAME
+  }
+  softDimT("Cat3" as Cat3) {
+    primary_key(CAT3_ID: String)
+    NAME
+  }
+  softDimT("Cat5" as Cat5) {
+    primary_key(CAT5_ID: String)
+    NAME
+  }
+  softDimT("Cat6" as Cat6) {
+    primary_key(CAT6_ID: String)
+    NAME
+  }
+  softDimT("Cat7" as Cat7) {
+    primary_key(CAT7_ID: String)
+    NAME
+  }
+  softDimT("Cat8" as Cat8) {
+    primary_key(CAT8_ID: String)
+    NAME
+  }
+  linkTo(Stk, "BRAND_ID", Brnd)
+  linkTo(Stk, "CAT1_ID", Cat1)
+  linkTo(Stk, "CAT2_ID", Cat2)
+  linkTo(Stk, "CAT3_ID", Cat3)
+  linkTo(Stk, "CAT5_ID", Cat5)
+  linkTo(Stk, "CAT6_ID", Cat6)
+  linkTo(Stk, "CAT7_ID", Cat7)
+  linkTo(Stk, "CAT8_ID", Cat8)
+}
+
+@enduml

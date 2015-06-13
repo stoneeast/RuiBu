@@ -28,10 +28,25 @@ object EstoreApp {
   val caBar = new CsvAttributes(delimiter = '|', hasHeader = true)
   
   /********************************************************************
-   * Product
+   * Products
    ********************************************************************/
-  val stk = SmvCsvFile("input/prod/stkmas.txt", caBar) 
-  val trn = SmvCsvFile("input/trnx/transaction.txt", caBar) 
+  val stk = SmvCsvFile("input/prod/stkmas.txt", caBar)
+  val brand = SmvCsvFile("input/prod/brand.txt", caBar)
+  val cat1 = SmvCsvFile("input/prod/cat1.txt", caBar)
+  val cat2 = SmvCsvFile("input/prod/cat2.txt", caBar)
+  val cat3 = SmvCsvFile("input/prod/cat3.txt", caBar)
+  val cat5 = SmvCsvFile("input/prod/cat5.txt", caBar)
+  val cat6 = SmvCsvFile("input/prod/cat6.txt", caBar)
+  val cat7 = SmvCsvFile("input/prod/cat7.txt", caBar)
+  val cat8 = SmvCsvFile("input/prod/cat8.txt", caBar)
+
+  /********************************************************************
+   * Transactions
+   ********************************************************************/
+  val trn = SmvCsvFile("input/trnx/transaction.txt", caBar)
+  val store = SmvCsvFile("input/trnx/STORE.txt", caBar)
+  val invmv = SmvCsvFile("input/trnx/INVMOVEID.txt", caBar)
+
   def main(args: Array[String]) {
     new EstoreApp("EstoreApp", args).run()
   }
